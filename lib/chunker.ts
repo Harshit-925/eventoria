@@ -9,8 +9,6 @@ import { estimateTokens } from "./classifier";
 export interface ChunkOptions {
   /** Maximum token limit per chunk (default 4000) */
   readonly maxTokens?: number;
-  /** Overlap token count between chunks (default 100) */
-  readonly overlapTokens?: number;
 }
 
 /**

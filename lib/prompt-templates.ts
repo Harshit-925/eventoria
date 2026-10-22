@@ -7,9 +7,6 @@
 import type { EventPlanRequest } from "@/types/event";
 import { REQUIRED_CATEGORIES } from "./constants";
 
-/** Version identifier */
-export const PROMPT_VERSION = "v1.0.0";
-
 /**
  * Base system rules shared across all prompts to ensure ethical, accurate, and structured advice.
  */

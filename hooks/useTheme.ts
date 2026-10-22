@@ -57,5 +57,5 @@ export function useTheme() {
     document.documentElement.setAttribute("data-theme", next);
   }, []);
 
-  return { theme, toggleTheme, mounted: true };
+  return { theme, toggleTheme };
 }

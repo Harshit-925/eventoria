@@ -5,21 +5,7 @@ import styles from "./ThemeToggle.module.css";
 import { useTheme } from "@/hooks/useTheme";
 
 export const ThemeToggle: React.FC = () => {
-  const { theme, toggleTheme, mounted } = useTheme();
-
-  if (!mounted) {
-    return (
-      <button
-        type="button"
-        className={styles.themeToggle}
-        aria-label="Toggle theme"
-        disabled
-      >
-        <span aria-hidden="true">☀️</span>
-      </button>
-    );
-  }
-
+  const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
 
   return (

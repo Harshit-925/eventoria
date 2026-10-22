@@ -5,13 +5,6 @@
 
 import type { EventType, GeminiModel } from "@/types/event";
 
-/** Supported event types list */
-export const EVENT_TYPES: ReadonlyArray<EventType> = [
-  "wedding",
-  "birthday",
-  "community",
-] as const;
-
 /** Minimum required categories enforced per event type */
 export const REQUIRED_CATEGORIES: Record<EventType, ReadonlyArray<string>> = {
   wedding: [
@@ -84,7 +77,6 @@ export const RATE_LIMIT_MAX_REQUESTS = {
 /** Storage key for localStorage */
 export const LOCAL_STORAGE_KEYS = {
   CURRENT_PLAN: "eventoria_current_plan",
-  SAVED_PLANS: "eventoria_saved_plans",
   THEME: "eventoria_theme",
   CHAT_HISTORY: "eventoria_chat_history",
 } as const;

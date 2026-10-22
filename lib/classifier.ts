@@ -142,18 +142,15 @@ export function classifyQuery(
   let complexity: QueryComplexity = "complex";
   let model: GeminiModel = DEFAULT_MODELS.complex;
 
-  if (matchesSimple && !matchesComplex && estimatedTokens < 60 && detectedCategories.length <= 1) {
-    complexity = "simple";
-    model = DEFAULT_MODELS.simple;
-  } else if (matchesSimple && !matchesComplex && estimatedTokens < 120 && detectedCategories.length <= 1) {
-    complexity = "moderate";
-    model = DEFAULT_MODELS.simple;
-  } else {
-    // Default when ambiguous, multi-category, or complex
-    complexity = "complex";
-    model = DEFAULT_MODELS.complex;
+  if (matchesSimple && !matchesComplex && detectedCategories.length <= 1) {
+    if (estimatedTokens < 60) {
+      complexity = "simple";
+      model = DEFAULT_MODELS.simple;
+    } else if (estimatedTokens < 120) {
+      complexity = "moderate";
+      model = DEFAULT_MODELS.simple;
+    }
   }
-
 
   return {
     complexity,

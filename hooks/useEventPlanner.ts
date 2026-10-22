@@ -22,7 +22,6 @@ export function useEventPlanner() {
 
   const [status, setStatus] = useState<PlanStatus>(savedPlan ? "success" : "idle");
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<string>("budget");
 
   // Plan generation API call
   const generatePlan = useCallback(
@@ -45,7 +44,6 @@ export function useEventPlanner() {
         const data: PlanApiResponse = await response.json();
         setSavedPlan(data.plan);
         setStatus("success");
-        setActiveTab("budget");
       } catch (err) {
         const message = err instanceof Error ? err.message : "An unexpected error occurred.";
         setError(message);
@@ -147,8 +145,6 @@ export function useEventPlanner() {
     plan: savedPlan,
     status,
     error,
-    activeTab,
-    setActiveTab,
     generatePlan,
     updateBudgetItem,
     toggleTimelineStatus,
