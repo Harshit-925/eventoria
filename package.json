@@ -19,7 +19,6 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@rolldown/binding-win32-x64-msvc": "^1.2.15",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^22.20.5",
@@ -31,5 +30,9 @@
     "jsdom": "^29.1.1",
     "typescript": "^5",
     "vitest": "^5.0.5"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-linux-x64-gnu": "^1.2.15",
+    "@rolldown/binding-win32-x64-msvc": "^1.2.15"
   }
 }
