@@ -22,6 +22,7 @@ import {
 } from "./prompt-templates";
 import { eventPlanSchema } from "./validators";
 import { sanitizeOutput } from "./guardrails";
+import { logger } from "./logger";
 
 /** Gets the API key from environment */
 function getApiKey(): string | undefined {
@@ -264,7 +265,7 @@ export async function generateEventPlan(request: EventPlanRequest): Promise<{
       model: modelName,
     };
   } catch (err) {
-    console.warn("Gemini plan generation encountered error, serving resilient fallback:", err);
+    logger.warn("Gemini plan generation encountered error, serving resilient fallback:", err);
     const fallback = generateFallbackPlan(request);
     return { plan: fallback, model: modelName };
   }
@@ -309,7 +310,7 @@ export async function askQuestion(
     const cleanAnswer = sanitizeOutput(response.text || "No response received.");
     return { answer: cleanAnswer, model: modelName };
   } catch (err) {
-    console.warn("Gemini askQuestion fallback:", err);
+    logger.warn("Gemini askQuestion fallback:", err);
     return {
       answer: `When planning your ${context?.eventType || "event"}, consider booking key vendors at least 2-3 months in advance to ensure availability and favorable rates.`,
       model: modelName,
@@ -377,7 +378,7 @@ export async function* streamChat(
       }
     }
   } catch (err) {
-    console.warn("Gemini stream error, yielding fallback response:", err);
+    logger.warn("Gemini stream error, yielding fallback response:", err);
     yield "I apologize, but I encountered a temporary connection issue. Please try asking your question again in a moment.";
   }
 }

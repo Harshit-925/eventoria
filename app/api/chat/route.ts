@@ -9,6 +9,7 @@ import { chatRequestSchema } from "@/lib/validators";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limiter";
 import { checkPlanningScope } from "@/lib/guardrails";
 import { streamChat } from "@/lib/gemini";
+import { logger } from "@/lib/logger";
 import type { ApiErrorResponse } from "@/types/event";
 
 export async function POST(request: Request): Promise<Response> {
@@ -102,7 +103,7 @@ export async function POST(request: Request): Promise<Response> {
         }
         controller.enqueue(encoder.encode("data: [DONE]\n\n"));
       } catch (err) {
-        console.error("Stream generation error:", err);
+        logger.error("Stream generation error", err);
         controller.enqueue(
           encoder.encode(
             `data: ${JSON.stringify({

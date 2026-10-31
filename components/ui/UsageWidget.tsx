@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./UsageWidget.module.css";
+import { logger } from "@/lib/logger";
 import type { UsageApiResponse } from "@/types/event";
 
 export const UsageWidget: React.FC = () => {
@@ -18,7 +19,7 @@ export const UsageWidget: React.FC = () => {
           if (isMounted) setData(json);
         }
       } catch (err) {
-        console.warn("Could not fetch usage status:", err);
+        logger.warn("Could not fetch usage status:", err);
       } finally {
         if (isMounted) setIsLoading(false);
       }

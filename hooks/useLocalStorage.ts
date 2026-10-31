@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { logger } from "@/lib/logger";
 
 /**
  * Type-safe localStorage hook with lazy initializer for React 19.
@@ -21,7 +22,7 @@ export function useLocalStorage<T>(
       const item = window.localStorage.getItem(key);
       return item !== null ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.warn(`Error reading localStorage key "${key}":`, error);
+      logger.warn(`Error reading localStorage key "${key}":`, error);
       return initialValue;
     }
   });
@@ -37,7 +38,7 @@ export function useLocalStorage<T>(
           return valueToStore;
         });
       } catch (error) {
-        console.warn(`Error setting localStorage key "${key}":`, error);
+        logger.warn(`Error setting localStorage key "${key}":`, error);
       }
     },
     [key]
@@ -50,7 +51,7 @@ export function useLocalStorage<T>(
       }
       setStoredValue(initialValue);
     } catch (error) {
-      console.warn(`Error clearing localStorage key "${key}":`, error);
+      logger.warn(`Error clearing localStorage key "${key}":`, error);
     }
   }, [key, initialValue]);
 

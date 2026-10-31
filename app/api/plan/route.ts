@@ -9,6 +9,7 @@ import { eventPlanRequestSchema } from "@/lib/validators";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limiter";
 import { classifyQuery } from "@/lib/classifier";
 import { generateEventPlan } from "@/lib/gemini";
+import { logger } from "@/lib/logger";
 import type { ApiErrorResponse, PlanApiResponse } from "@/types/event";
 
 export async function POST(request: Request): Promise<NextResponse<PlanApiResponse | ApiErrorResponse>> {
@@ -81,7 +82,7 @@ export async function POST(request: Request): Promise<NextResponse<PlanApiRespon
       }
     );
   } catch (err) {
-    console.error("Unhandled error in /api/plan:", err);
+    logger.error("Unhandled error in /api/plan:", err);
     return NextResponse.json(
       {
         error: "An unexpected error occurred while generating your plan. Please try again.",

@@ -9,6 +9,7 @@ import { askRequestSchema } from "@/lib/validators";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limiter";
 import { checkPlanningScope } from "@/lib/guardrails";
 import { askQuestion, getModelForTier } from "@/lib/gemini";
+import { logger } from "@/lib/logger";
 import type { ApiErrorResponse, AskApiResponse, GeminiModel } from "@/types/event";
 
 export async function POST(request: Request): Promise<NextResponse<AskApiResponse | ApiErrorResponse>> {
@@ -78,7 +79,7 @@ export async function POST(request: Request): Promise<NextResponse<AskApiRespons
       { status: 200, headers: rateCheck.headers }
     );
   } catch (err) {
-    console.error("Unhandled error in /api/ask:", err);
+    logger.error("Unhandled error in /api/ask", err);
     return NextResponse.json(
       {
         error: "An unexpected error occurred. Please try asking again.",
